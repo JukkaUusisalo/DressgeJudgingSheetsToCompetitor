@@ -11,4 +11,8 @@ How this should work.
 4. Application tries recognize competitor name from sheets and suggest it to you.
 5. You accept competitor or select another on, and application send it to competitor via email.
 
+## Desing
+
+![Design](diagrams/DressageJudgingSheetsToCompetitor.png)
+
 
