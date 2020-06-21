@@ -24,5 +24,23 @@ def readCvs(csvFile):
         for c in competitorDict:
             db.insert(vars(competitorDict[c]))
         return competitorDict
+
+def getCompetitorNames():
+    names = []
+    db = TinyDB('data/db.json')
+    competitors = db.all()
+    for competitor in competitors:
+        names.append(competitor['name'])
+    return names
+
+def getEmailByName(name):
+    emailList = []
+    db = TinyDB('data/db.json')
+    query = Query()
+    result = db.search(query.name == name)
+    for doc in result:
+        emailList.append(doc['email'])
+    return emailList
+
                   
        
