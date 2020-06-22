@@ -1,6 +1,7 @@
 import sys
 import scanningmodule
 import importmodule
+import mailingmodule
 
 pdfFile = sys.argv[1]
 
@@ -27,6 +28,9 @@ else:
     print('Anna nimi tai nimen alkuosa ja paina enter')
 
 print(email)
+
+mailingmodule.sendMail("jukka.uusisalo@gmail.com","Jukka Uusisalo",pdfFile)
+
 
 
 
