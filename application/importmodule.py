@@ -1,4 +1,5 @@
 import csv
+import re
 from tinydb import TinyDB, Query
 
 class Competitor:
@@ -41,6 +42,16 @@ def getEmailByName(name):
     for doc in result:
         emailList.append(doc['email'])
     return emailList
+
+def getCompetitorListByName(nameCriteria):
+    nameList = []
+    db = TinyDB('data/db.json')
+    query = Query()
+    test_contains = lambda value, search: search in value
+    result = db.search(query.name.test(test_contains, nameCriteria))
+    for doc in result:
+        nameList.append(doc['name'])
+    return nameList
 
                   
        
