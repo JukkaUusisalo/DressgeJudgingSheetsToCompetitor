@@ -2,6 +2,11 @@ from mailjet_rest import Client
 import os
 import base64
 import configparser
+from pathlib import Path
+
+
+def confpath():
+    return str(Path.home()) + "/dressage.ini"
 
 def getBase64Content(pdfFile):
     with open(pdfFile, "rb") as pdf_file:
@@ -10,12 +15,12 @@ def getBase64Content(pdfFile):
 
 def getApiKey():
     config = configparser.ConfigParser()
-    config.read('conf/application.ini')   
+    config.read(confpath())   
     return config['mailjet']['api_key'] 
     
 def getApiSecret():
     config = configparser.ConfigParser()
-    config.read('conf/application.ini')   
+    config.read(confpath())
     return config['mailjet']['api_secret']     
 
 def sendMail(recipient,fullName,pdfFilePath):
