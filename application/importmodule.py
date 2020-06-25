@@ -1,6 +1,8 @@
 import csv
 import re
+import tempfile
 from tinydb import TinyDB, Query
+
 
 class Competitor:
     def __init__(self,name, email, licenseNo):
@@ -8,10 +10,13 @@ class Competitor:
         self.name = name
         self.email = email
 
+def dbPath():
+    return tempfile.gettempdir() + "/db.json"    
+
 
 def readCvs(csvFile): 
-    with open(csvFile, mode='r') as csv_file:
-        db = TinyDB('data/db.json')
+    with open(csvFile, mode='r') as csv_file:        
+        db = TinyDB(dbPath())
         competitorDict = {}
         csv_reader = csv.DictReader(csv_file)
         line_count = 0
@@ -28,7 +33,7 @@ def readCvs(csvFile):
 
 def getCompetitorNames():
     names = []
-    db = TinyDB('data/db.json')
+    db = TinyDB(dbPath())
     competitors = db.all()
     for competitor in competitors:
         names.append(competitor['name'])
@@ -36,7 +41,7 @@ def getCompetitorNames():
 
 def getEmailByName(name):
     emailList = []
-    db = TinyDB('data/db.json')
+    db = TinyDB(dbPath())
     query = Query()
     result = db.search(query.name == name)
     for doc in result:
@@ -45,7 +50,7 @@ def getEmailByName(name):
 
 def getCompetitorListByName(nameCriteria):
     nameList = []
-    db = TinyDB('data/db.json')
+    db = TinyDB(dbPath())
     query = Query()
     test_contains = lambda value, search: search in value
     result = db.search(query.name.test(test_contains, nameCriteria))

@@ -54,6 +54,10 @@ if(email):
 else: 
     print("Ei löydy, selvitä manuaalisesti")
 
+print("Paina Enter lopettaaksesi")
+end = input()
+
+
 
 
 
