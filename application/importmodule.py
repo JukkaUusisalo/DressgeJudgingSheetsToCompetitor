@@ -1,6 +1,7 @@
 import csv
 import re
 import tempfile
+import os
 from tinydb import TinyDB, Query
 
 
@@ -13,6 +14,9 @@ class Competitor:
 def dbPath():
     return tempfile.gettempdir() + "/db.json"    
 
+def clearDB():
+    if(os.path.exists(dbPath())):
+        os.remove(dbPath())
 
 def readCvs(csvFile): 
     with open(csvFile, mode='r') as csv_file:        
