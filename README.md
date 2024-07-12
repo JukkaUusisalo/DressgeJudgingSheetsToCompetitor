@@ -15,4 +15,48 @@ How this should work.
 
 ![Design](diagrams/DressageJudgingSheetsToCompetitor.png)
 
+## Running dev 
+
+To run this application, follow these steps:
+
+1. Make sure you have the necessary dependencies installed. You can check the `requirements.txt` file for a list of required packages.
+
+2. Clone the repository to your local machine:
+    ```
+    git clone https://github.com/your-username/DressgeJudgingSheetsToCompetitor.git
+    ```
+
+3. Navigate to the project directory:
+    ```
+    cd DressgeJudgingSheetsToCompetitor
+    ```
+
+4. Set up the virtual environment:
+    ```
+    python -m venv venv
+    ```
+
+5. Activate the virtual environment:
+    - For Windows:
+      ```
+      venv\Scripts\activate
+      ```
+    - For macOS/Linux:
+      ```
+      source venv/bin/activate
+      ```
+
+6. Install the required dependencies:
+    ```
+    pip install -r requirements.txt
+    ```
+
+7. Run the application:
+    ```
+    python importTool.py
+    ```
+
+8. Access the application in your web browser by navigating to `http://localhost:5000`.
+
+
 
