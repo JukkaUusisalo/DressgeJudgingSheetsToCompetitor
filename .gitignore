@@ -3,4 +3,5 @@ data/*
 *.pyc
 conf/application.ini
 conf/dressage.ini
+venv/
 
