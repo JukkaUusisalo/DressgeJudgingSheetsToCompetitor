@@ -15,7 +15,7 @@ How this should work.
 
 ![Design](diagrams/DressageJudgingSheetsToCompetitor.png)
 
-## Running dev 
+## Running dev env
 
 To run this application, follow these steps:
 
