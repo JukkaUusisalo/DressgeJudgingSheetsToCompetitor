@@ -3,3 +3,9 @@
 [mailjet]
 api_key = <your api_key>
 api_secret = <your api_secret>
+
+[mail_options]
+sender_email=<your_sender_email>
+sender_name=<your_sender_name>
+subject=<optional subject>
+body=<optional body text>

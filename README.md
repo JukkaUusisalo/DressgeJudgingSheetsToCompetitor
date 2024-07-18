@@ -49,6 +49,12 @@ To run this application, follow these steps:
 6. Install the required dependencies:
     ```
     pip install -r requirements.txt
+    ````
+
+7. Copy template ini file to your home directory and modify content
+    ```
+    cp conf/application.ini.template $HONE/dressage.ini
+    vi $HOME/dressage.ini
     ```
 
 7. Run the application:
@@ -56,7 +62,7 @@ To run this application, follow these steps:
     python importTool.py
     ```
 
-8. Access the application in your web browser by navigating to `http://localhost:5000`.
+
 
 
 

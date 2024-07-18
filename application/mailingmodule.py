@@ -23,18 +23,47 @@ def getApiSecret():
     config.read(confpath())
     return config['mailjet']['api_secret']     
 
+def getSenderEmail():
+    config = configparser.ConfigParser()
+    config.read(confpath)
+    defaultSenderName = config['mail_options']['sender_email']    
+
+def getSenderName():
+    config = configparser.ConfigParser()
+    config.read(confpath)
+    defaultSenderName = config['mail_options']['sender_name']       
+
+def getSubject():
+    config = configparser.ConfigParser()
+    config.read(confpath)
+    defaultSenderName = config['mail_options']['sender_name']
+    defaultSubject = f"Arvostelusi {defaultSenderName} kouluratsastuskisoista"
+    return config.get('mail_options','subject',fallback=defaultSubject)
+
+def getBodyText():
+    config = configparser.ConfigParser()
+    config.read(confpath)
+    defaultBodyText = "Hei, liitteenä arvostelusi kouluratsastuskisoista."
+    return config.get('mail_options','subject',fallback=defaultBodyText)
+
+
+
 def sendMail(recipient,fullName,pdfFilePath):
     api_key = getApiKey()
     api_secret = getApiSecret()
     mailjet = Client(auth=(api_key, api_secret), version='v3.1')
     fileName = fullName + "-arvostelu.pdf"
     base64Content = getBase64Content(pdfFilePath) 
+    senderEmail = getSenderEmail()
+    senderName = getSenderName()
+    subject = getSubject()
+    bodyText = getBodyText()
     data = {
     'Messages': [
         {
         "From": {
-            "Email": "luoteis.satakunnan.ratsastajat@gmail.com",
-            "Name": "Luoteis-Satakunnan Ratsastajat Ry"
+            "Email": senderEmail,
+            "Name": senderName
         },
         "To": [
             {
@@ -42,8 +71,8 @@ def sendMail(recipient,fullName,pdfFilePath):
             "Name": fullName
             }
         ],
-        "Subject": "Arvostelusi Lusarin kouluratsastuskisoista",
-        "TextPart": "Hei, liitteenä arvostelusi kouluratsastuskisoista.",        
+        "Subject": subject,
+        "TextPart": bodyText,        
     	"Attachments": [
 		    {
 		        "ContentType": "application/pdf",
