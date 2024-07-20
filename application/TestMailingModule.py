@@ -27,7 +27,13 @@ class TestSendMail(unittest.TestCase):
 		mock_client_instance.send.create.assert_called()
 		# Further assertions can be added to check the structure of the data passed to send.create
 
-	# Additional tests for error handling, invalid inputs, etc., can be implemented similarly
+	def test_send_mail_E2E(self):
+		# This is an end-to-end test that sends an actual email
+		# This test will only work if the configuration is set up correctly
+		# modify varialbles below to match proper recipient email and name
+		recipient_email = 'test@example.com'
+		recipient_name = 'Test Sender'
+		sendMail(recipient_email,recipient_name,'../Test/content/Test_File.pdf')
 
 if __name__ == '__main__':
 	unittest.main()

@@ -1,5 +1,7 @@
+import logging
 from mailjet_rest import Client
 import os
+import sys
 import base64
 import configparser
 from pathlib import Path
@@ -25,30 +27,40 @@ def getApiSecret():
 
 def getSenderEmail():
     config = configparser.ConfigParser()
-    config.read(confpath)
-    defaultSenderName = config['mail_options']['sender_email']    
+    config.read(confpath())
+    return  config['mail_options']['sender_email']    
 
 def getSenderName():
     config = configparser.ConfigParser()
-    config.read(confpath)
-    defaultSenderName = config['mail_options']['sender_name']       
+    config.read(confpath())
+    return config['mail_options']['sender_name']       
 
 def getSubject():
     config = configparser.ConfigParser()
-    config.read(confpath)
+    config.read(confpath())
     defaultSenderName = config['mail_options']['sender_name']
     defaultSubject = f"Arvostelusi {defaultSenderName} kouluratsastuskisoista"
     return config.get('mail_options','subject',fallback=defaultSubject)
 
 def getBodyText():
     config = configparser.ConfigParser()
-    config.read(confpath)
+    config.read(confpath())
     defaultBodyText = "Hei, liitteenä arvostelusi kouluratsastuskisoista."
     return config.get('mail_options','subject',fallback=defaultBodyText)
 
 
 
 def sendMail(recipient,fullName,pdfFilePath):
+    logger = logging.getLogger(__name__)
+    log_level_str = os.getenv('LOG_LEVEL', 'INFO').upper()
+    log_level = getattr(logging, log_level_str, logging.INFO)
+    logger.setLevel(log_level)
+    stdout_handler = logging.StreamHandler(sys.stdout)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    stdout_handler.setFormatter(formatter)
+    logger.addHandler(stdout_handler)
+    logger.setLevel(logging.DEBUG)
+
     api_key = getApiKey()
     api_secret = getApiSecret()
     mailjet = Client(auth=(api_key, api_secret), version='v3.1')
@@ -58,6 +70,7 @@ def sendMail(recipient,fullName,pdfFilePath):
     senderName = getSenderName()
     subject = getSubject()
     bodyText = getBodyText()
+    logger.debug(f"Sending email to {recipient} with subject {subject} from {senderEmail} {senderName}")
     data = {
     'Messages': [
         {
