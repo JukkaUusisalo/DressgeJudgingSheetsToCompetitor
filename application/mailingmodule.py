@@ -46,7 +46,7 @@ def getBodyText():
     config = configparser.ConfigParser()
     config.read(confpath())
     defaultBodyText = "Hei, liitteenä arvostelusi kouluratsastuskisoista."
-    return config.get('mail_options','subject',fallback=defaultBodyText)
+    return config.get('mail_options','body',fallback=defaultBodyText)
 
 
 
